@@ -1,6 +1,6 @@
 'use strict'
 
-function negotiate (header, supportedValues) {
+function negotiate(header, supportedValues) {
   if (
     !header ||
     !Array.isArray(supportedValues) ||
@@ -17,7 +17,7 @@ function negotiate (header, supportedValues) {
   let preferredEncodingPriority = Infinity
   let preferredEncodingQuality = 0
 
-  function processMatch (enc, quality) {
+  function processMatch(enc, quality) {
     if (quality === 0 || preferredEncodingQuality > quality) {
       return false
     }
@@ -53,9 +53,9 @@ const TOKEN = 1
 const QUALITY = 2
 const END = 3
 
-function parse (header, processMatch) {
+function parse(header, processMatch) {
   let str = ''
-  let quality = ''
+  let quality
   let state = BEGIN
   for (var i = 0, il = header.length; i < il; ++i) {
     const char = header[i]
@@ -65,6 +65,7 @@ function parse (header, processMatch) {
     } else if (char === ';') {
       if (state === TOKEN) {
         state = QUALITY
+        quality = ''
       }
       continue
     } else if (char === ',') {
@@ -85,11 +86,12 @@ function parse (header, processMatch) {
         quality = ''
       }
       continue
-    } else if (state === QUALITY && (char === 'q' || char === '=')) {
-      continue
     } else if (
-      state === QUALITY &&
-      (
+      state === QUALITY
+    ) {
+      if (char === 'q' || char === '=') {
+        continue
+      } else if (
         char === '.' ||
         char === '1' ||
         char === '0' ||
@@ -101,30 +103,31 @@ function parse (header, processMatch) {
         char === '7' ||
         char === '8' ||
         char === '9'
-      )
-    ) {
-      quality += char
-      continue
+      ) {
+        quality += char
+        continue
+      }
     } else if (state === BEGIN) {
       state = TOKEN
+      str += char
+      continue
     }
     if (state === TOKEN) {
-      if (str.length !== 0) {
-        const prevChar = header[i - 1]
-        if (prevChar === ' ' || prevChar === '\t') {
-          str = ''
-        }
+      const prevChar = header[i - 1]
+      if (prevChar === ' ' || prevChar === '\t') {
+        str = ''
       }
       str += char
-    } else {
-      if (processMatch(str, parseFloat(quality) || 0)) {
-        state = END
-        break
-      }
-      state = BEGIN
-      str = char
-      quality = ''
+      continue
     }
+    if (processMatch(str, parseFloat(quality) || 0)) {
+      state = END
+      break
+    }
+    state = BEGIN
+    str = char
+    quality = ''
+
   }
 
   if (state === TOKEN) {
