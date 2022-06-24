@@ -16,6 +16,9 @@ function Negotiator (options) {
 }
 
 Negotiator.prototype.negotiate = function (header) {
+  if (typeof header !== 'string') {
+    return null
+  }
   if (!this.cache) {
     return negotiate(header, this.supportedValues)
   }
