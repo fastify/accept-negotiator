@@ -1,6 +1,31 @@
 'use strict'
 
-function negotiate(header, supportedValues) {
+function Negotiator (options) {
+  if (!new.target) {
+    return new Negotiator(options)
+  }
+
+  const {
+    supportedValues = [],
+    cache
+  } = (options && typeof options === 'object' && options) || {}
+
+  this.supportedValues = supportedValues
+
+  this.cache = cache
+}
+
+Negotiator.prototype.negotiate = function (header) {
+  if (!this.cache) {
+    return negotiate(header, this.supportedValues)
+  }
+  if (!this.cache.has(header)) {
+    this.cache.set(header, negotiate(header, this.supportedValues))
+  }
+  return this.cache.get(header)
+}
+
+function negotiate (header, supportedValues) {
   if (
     !header ||
     !Array.isArray(supportedValues) ||
@@ -17,7 +42,7 @@ function negotiate(header, supportedValues) {
   let preferredEncodingPriority = Infinity
   let preferredEncodingQuality = 0
 
-  function processMatch(enc, quality) {
+  function processMatch (enc, quality) {
     if (quality === 0 || preferredEncodingQuality > quality) {
       return false
     }
@@ -53,11 +78,11 @@ const TOKEN = 1
 const QUALITY = 2
 const END = 3
 
-function parse(header, processMatch) {
+function parse (header, processMatch) {
   let str = ''
   let quality
   let state = BEGIN
-  for (var i = 0, il = header.length; i < il; ++i) {
+  for (let i = 0, il = header.length; i < il; ++i) {
     const char = header[i]
 
     if (char === ' ' || char === '\t') {
@@ -127,7 +152,6 @@ function parse(header, processMatch) {
     state = BEGIN
     str = char
     quality = ''
-
   }
 
   if (state === TOKEN) {
@@ -140,3 +164,4 @@ function parse(header, processMatch) {
 module.exports = negotiate
 module.exports.default = negotiate
 module.exports.negotiate = negotiate
+module.exports.Negotiator = Negotiator

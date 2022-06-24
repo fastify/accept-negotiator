@@ -1,12 +1,12 @@
 {
   "name": "@fastify/accept-negotiator",
   "version": "1.0.0",
-  "description": "a negotiator for the accept-encoding header",
+  "description": "a negotiator for the accept-headers",
   "type": "commonjs",
   "main": "index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "test": "nyc node ./test/test.js",
+    "test": "tsd && nyc node ./test/index.js",
     "lint": "standard index.js test/* benchmarks/*"
   },
   "standard": {
@@ -33,7 +33,8 @@
   "devDependencies": {
     "benchmark": "2.1.4",
     "nyc": "15.1.0",
-    "standard": "17.0.0"
+    "standard": "17.0.0",
+    "tsd": "^0.21.0"
   },
   "engines": {
     "node": ">=14"

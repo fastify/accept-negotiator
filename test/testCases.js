@@ -1,9 +1,5 @@
-'use strict'
 
-const assert = require('assert')
-const negotiate = require('../index').negotiate
-
-const testCases = [
+module.exports = [
   ['gzip, , identity', ['deflate', 'gzip'], 'gzip'],
   ['identity;q=1', ['gzip', 'identity'], 'identity'],
   ['gzip;q=1, identity;q=0.5', ['gzip', 'deflate'], 'gzip'],
@@ -52,9 +48,4 @@ const testCases = [
   ['iden tity;q = 1f', ['tity'], 'tity'],
   ['gzip;q=1, identity;q=0.f5', ['identity'], null],
   ['gzip;q=1, identity;q=0.f5', ['f5', 'gzip'], 'f5']
-
 ]
-
-for (const [header, supportedEncodings, expected] of testCases) {
-  assert.equal(negotiate(header, supportedEncodings), expected, `should return ${expected} when ${header} and ${supportedEncodings}`)
-}
