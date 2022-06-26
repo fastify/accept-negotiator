@@ -1,37 +1,52 @@
-# skeleton
+# @fastify/accept-negotiator
 
-Template repository to create standardized Fastify plugins.
 
-# Getting started
+![CI](https://github.com/fastify/fastify-accept-negotiator/workflows/CI/badge.svg)
+[![NPM version](https://img.shields.io/npm/v/@fastify/accept-negotiator.svg?style=flat)](https://www.npmjs.com/package/@fastify/accept-negotiator)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://standardjs.com/)
 
-- Click on `Use this template` above to create a new repository based on this repository.
+A negotiator for the accept-headers
 
-# What's included?
+### Install
+```
+npm i @fastify/accept-negotiator
+```
 
-1. Github CI Actions for installing, testing your package.
-2. Github CI Actions to validate different package managers.
-3. Dependabot V2 config to automate dependency updates.
-4. Template for the GitHub App [Stale](https://github.com/apps/stale) to mark issues as stale. 
-5. Template for the GitHub App [tests-checker](https://github.com/apps/tests-checker) to check if a PR contains tests.
+### Usage
 
-# Repository structure
+The module exports a function that you can use for negotiating an accept-header, e.g. accept-encoding. It takes 2 parameters:
 
 ```
-├── .github
-│   ├── workflows
-│   │   ├── ci.yml
-│   │   └── package-manager-ci.yml
-│   ├── .stale.yml
-│   ├── dependabot.yml
-│   └── tests_checker.yml
-│
-├── docs (Documentation)
-│   
-├── examples (Code examples)
-│
-├── test (Application tests)
-│   
-├── types (Typescript types)
-│  
-└── README.md
+negotiate(header, supportedValues)
 ```
+
+- `header` (`string`, required) - The accept-header, e.g. accept-encoding
+- `supportedValues` (`string[]`, required) - The values, which are supported
+
+```js
+const negotiate = require('@fastify/accept-encoding').negotiate
+const encoding = negotiate('gzip, deflate, br', ['br'])
+console.log(encoding) // 'br*
+```
+
+The module also exports a class that you can use for negotiating an accept-header, e.g. accept-encoding, and use caching for better performance.
+
+
+```
+Negotiate(supportedValues)
+```
+
+- `supportedValues` (`string[]`, required) - The values, which are supported
+- `cache` (`{ set: Function; get: Function; has: Function }`, optional) - A Cache-Store, e.g. ES6-Map or mnemonist LRUCache
+
+```js
+const Negotiator = require('@fastify/accept-encoding').Negotiator
+const encodingNegotiator = new Negotiator({ supportedValues: ['br'], cache: new Map() })
+
+const encoding = encodingNegotiator.negotiate('gzip, deflate, br')
+console.log(encoding) // 'br*
+```
+
+## License
+
+Licensed under [MIT](./LICENSE).
