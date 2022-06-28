@@ -1,7 +1,7 @@
 # @fastify/accept-negotiator
 
 
-![CI](https://github.com/fastify/fastify-accept-negotiator/workflows/CI/badge.svg)
+![CI](https://github.com/fastify/accept-negotiator/workflows/CI/badge.svg)
 [![NPM version](https://img.shields.io/npm/v/@fastify/accept-negotiator.svg?style=flat)](https://www.npmjs.com/package/@fastify/accept-negotiator)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://standardjs.com/)
 
@@ -24,7 +24,7 @@ negotiate(header, supportedValues)
 - `supportedValues` (`string[]`, required) - The values, which are supported
 
 ```js
-const negotiate = require('@fastify/accept-encoding').negotiate
+const negotiate = require('@fastify/accept-negotiator').negotiate
 const encoding = negotiate('gzip, deflate, br', ['br'])
 console.log(encoding) // 'br*
 ```
@@ -40,7 +40,7 @@ Negotiate(supportedValues)
 - `cache` (`{ set: Function; get: Function; has: Function }`, optional) - A Cache-Store, e.g. ES6-Map or mnemonist LRUCache
 
 ```js
-const Negotiator = require('@fastify/accept-encoding').Negotiator
+const Negotiator = require('@fastify/accept-negotiator').Negotiator
 const encodingNegotiator = new Negotiator({ supportedValues: ['br'], cache: new Map() })
 
 const encoding = encodingNegotiator.negotiate('gzip, deflate, br')
