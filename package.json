@@ -41,9 +41,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/@fastify/encoding-negotiator.git"
+    "url": "git+https://github.com/fastify/accept-negotiator.git"
   },
   "bugs": {
-    "url": "https://github.com/fastify/encoding-negotiator/issues"
+    "url": "https://github.com/fastify/accept-negotiator/issues"
   }
 }
