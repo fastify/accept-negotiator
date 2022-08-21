@@ -24,6 +24,12 @@
     "http",
     "header"
   ],
+  "files": [
+    "README.md",
+    "LICENSE",
+    "index.js",
+    "types/index.d.ts"
+  ],
   "author": "Aras Abbasi",
   "license": "MIT",
   "devDependencies": {
