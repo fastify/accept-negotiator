@@ -1,6 +1,6 @@
 {
   "name": "@fastify/accept-negotiator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "a negotiator for the accept-headers",
   "type": "commonjs",
   "main": "index.js",
