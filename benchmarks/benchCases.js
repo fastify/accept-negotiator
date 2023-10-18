@@ -1,3 +1,5 @@
+'use strict'
+
 module.exports = [
   ['identity;q=1', ['gzip', 'identity'], 'identity'],
   ['gzip;q=1, identity;q=0.5', ['gzip', 'deflate'], 'gzip'],
