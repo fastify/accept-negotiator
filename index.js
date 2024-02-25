@@ -8,7 +8,7 @@ function Negotiator (options) {
   const {
     supportedValues = [],
     cache
-  } = (options && typeof options === 'object' && options) || {}
+  } = (typeof options === 'object' && options) || {}
 
   this.supportedValues = supportedValues
 
