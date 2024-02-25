@@ -39,9 +39,6 @@
     "tap": "^18.7.0",
     "tsd": "^0.30.7"
   },
-  "engines": {
-    "node": ">=14"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fastify/accept-negotiator.git"
