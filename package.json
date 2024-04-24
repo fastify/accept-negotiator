@@ -36,8 +36,8 @@
     "@fastify/pre-commit": "^2.1.0",
     "benchmark": "2.1.4",
     "standard": "17.1.0",
-    "tap": "^18.7.0",
-    "tsd": "^0.30.7"
+    "tap": "^18.7.2",
+    "tsd": "^0.31.0"
   },
   "repository": {
     "type": "git",
