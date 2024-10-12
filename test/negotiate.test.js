@@ -8,9 +8,6 @@ const negotiate = require('../index').negotiate
 for (const [header, supportedEncodings, expected] of testCases) {
   test(`should return ${expected} when ${header} and ${supportedEncodings}`, t => {
     const { strictEqual } = tspl(t, { plan: 1 })
-    new Promise((resolve) => {
-      strictEqual(negotiate(header, supportedEncodings), expected)
-      resolve()
-    })
+    strictEqual(negotiate(header, supportedEncodings), expected)
   })
 }
