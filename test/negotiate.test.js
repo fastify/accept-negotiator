@@ -1,12 +1,13 @@
 'use strict'
 
-const test = require('tap').test
+const { test } = require('node:test')
+const { tspl } = require('@matteo.collina/tspl')
 const testCases = require('./testCases')
 const negotiate = require('../index').negotiate
 
 for (const [header, supportedEncodings, expected] of testCases) {
   test(`should return ${expected} when ${header} and ${supportedEncodings}`, t => {
-    t.plan(1)
-    t.equal(negotiate(header, supportedEncodings), expected)
+    const { strictEqual } = tspl(t, { plan: 1 })
+    strictEqual(negotiate(header, supportedEncodings), expected)
   })
 }

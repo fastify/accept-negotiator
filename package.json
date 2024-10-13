@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "standard index.js test/* benchmarks/*",
     "test": "npm run test:unit && npm run test:typescript",
-    "test:unit": "tap",
+    "test:unit": "c8 --100 node --test",
     "test:typescript": "tsd"
   },
   "standard": {
@@ -34,9 +34,10 @@
   "license": "MIT",
   "devDependencies": {
     "@fastify/pre-commit": "^2.1.0",
+    "@matteo.collina/tspl": "^0.1.1",
     "benchmark": "2.1.4",
+    "c8": "^10.1.2",
     "standard": "17.1.2",
-    "tap": "^18.7.2",
     "tsd": "^0.31.0"
   },
   "repository": {
