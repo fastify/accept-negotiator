@@ -5,7 +5,7 @@ type NegotiateFn = typeof negotiate
 declare namespace negotiate {
   export class Negotiator<K extends string = string> {
     constructor (options: { supportedValues: K[]; cache?: CacheStore })
-  
+
     negotiate(header: string): K | null
   }
 
