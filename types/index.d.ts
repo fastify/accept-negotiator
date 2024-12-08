@@ -6,12 +6,12 @@ declare namespace negotiate {
   export class Negotiator<K extends string = string> {
     constructor (options: { supportedValues: K[]; cache?: CacheStore })
 
-    negotiate(header: string): K | null
+    negotiate (header: string): K | null
   }
 
   export const negotiate: NegotiateFn
   export { negotiate as default }
 }
 
-declare function negotiate<K extends string = string>(header: string, supportedValues: K[]): K | null;
-export = negotiate;
+declare function negotiate<K extends string = string> (header: string, supportedValues: K[]): K | null
+export = negotiate

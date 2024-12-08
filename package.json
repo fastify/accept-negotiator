@@ -6,15 +6,11 @@
   "main": "index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "lint": "standard index.js test/* benchmarks/*",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "test": "npm run test:unit && npm run test:typescript",
     "test:unit": "c8 --100 node --test",
     "test:typescript": "tsd"
-  },
-  "standard": {
-    "ignore": [
-      "index.d.ts"
-    ]
   },
   "keywords": [
     "encoding",
@@ -37,7 +33,7 @@
     "@matteo.collina/tspl": "^0.1.1",
     "benchmark": "2.1.4",
     "c8": "^10.1.2",
-    "standard": "17.1.2",
+    "neostandard": "^0.11.9",
     "tsd": "^0.31.0"
   },
   "repository": {

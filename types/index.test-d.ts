@@ -1,10 +1,10 @@
-import { expectError, expectType, expectNotAssignable} from 'tsd'
+import { expectError, expectType, expectNotAssignable } from 'tsd'
 import { Negotiator, negotiate } from '.'
 
-expectType<Negotiator>(new Negotiator({supportedValues: ['test']}))
-expectType<Negotiator>(new Negotiator({supportedValues: ['test'], cache: new Map<string, string>()}))
-expectType<(header: string) => ('test' | null)>(new Negotiator({ supportedValues: ['test']}).negotiate)
-expectError(new Negotiator({supportedValues: [1]}))
+expectType<Negotiator>(new Negotiator({ supportedValues: ['test'] }))
+expectType<Negotiator>(new Negotiator({ supportedValues: ['test'], cache: new Map<string, string>() }))
+expectType<(header: string) => ('test' | null)>(new Negotiator({ supportedValues: ['test'] }).negotiate)
+expectError(new Negotiator({ supportedValues: [1] }))
 expectError(new Negotiator())
 expectError(new Negotiator(null))
 expectError(new Negotiator(undefined))
