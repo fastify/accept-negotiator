@@ -5,7 +5,7 @@
 [![NPM version](https://img.shields.io/npm/v/@fastify/accept-negotiator.svg?style=flat)](https://www.npmjs.com/package/@fastify/accept-negotiator)
 [![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-brightgreen?style=flat)](https://github.com/neostandard/neostandard)
 
-A negotiator for the accept-headers
+A negotiator for accept-* headers.
 
 ### Install
 ```
@@ -14,7 +14,7 @@ npm i @fastify/accept-negotiator
 
 ### Usage
 
-The module exports a function that you can use for negotiating an accept-header, e.g. accept-encoding. It takes 2 parameters:
+The module exports a function that you can use for negotiating an accept-* header such as [`accept-encoding`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding). It takes 2 parameters:
 
 ```
 negotiate(header, supportedValues)
@@ -29,7 +29,7 @@ const encoding = negotiate('gzip, deflate, br', ['br'])
 console.log(encoding) // 'br*
 ```
 
-The module also exports a class that you can use for negotiating an accept-header, e.g. accept-encoding, and use caching for better performance.
+The module also exports a class that you can use for negotiating an accept-* header, and use caching for better performance.
 
 
 ```
