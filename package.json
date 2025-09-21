@@ -48,7 +48,6 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@fastify/pre-commit": "^2.1.0",
     "@matteo.collina/tspl": "^0.2.0",
     "benchmark": "2.1.4",
     "c8": "^10.1.2",
