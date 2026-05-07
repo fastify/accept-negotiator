@@ -1,6 +1,11 @@
 import { expect } from 'tstyche'
 import { Negotiator, negotiate } from '..'
 
+// TODO: these types are defined here only for testing purposes.
+// They cannot be moved to index.d.ts because the module uses `export =`
+// which prevents additional exports. This would require a breaking change
+// to the module's export style.
+
 type NegotiatorOptions = {
   supportedValues: string[];
   cache?: {
