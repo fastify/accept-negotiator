@@ -1,10 +1,19 @@
-type CacheStore = { set: (key: string, value: string) => CacheStore, get: (key: string) => string | undefined, has: (key: string) => boolean }
-
 type NegotiateFn = typeof negotiate
 
 declare namespace negotiate {
+  export type CacheStore = {
+    set: (key: string, value: string) => CacheStore,
+    get: (key: string) => string | undefined,
+    has: (key: string) => boolean
+  }
+
+  export type NegotiatorOptions<K extends string = string> = {
+    supportedValues: K[];
+    cache?: CacheStore
+  }
+
   export class Negotiator<K extends string = string> {
-    constructor (options: { supportedValues: K[]; cache?: CacheStore })
+    constructor (options: NegotiatorOptions<K>)
 
     negotiate (header: string): K | null
   }
