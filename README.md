@@ -14,7 +14,7 @@ npm i @fastify/accept-negotiator
 
 ### Usage
 
-The module exports a function that you can use for negotiating an accept-* header such as [`accept-encoding`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding). It takes 2 parameters:
+The module exports a function that you can use for negotiating an accept-* header such as [`accept-encoding`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Accept-Encoding). It takes 2 parameters:
 
 ```
 negotiate(header, supportedValues)
