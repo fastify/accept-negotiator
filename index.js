@@ -45,33 +45,54 @@ function negotiate (header, supportedValues) {
   let preferredEncodingPriority = Infinity
   let preferredEncodingQuality = 0
 
-  function processMatch (enc, quality) {
+  // `*` stands for the values that are not listed explicitly (RFC 9110
+  // 12.5.3), so it is resolved once the whole header has been read
+  let wildcardQuality = 0
+  const listedValues = header.indexOf('*') === -1 ? null : []
+
+  function processMatch (enc, quality, isWildcardMatch) {
+    if (enc === '*') {
+      wildcardQuality = quality
+      return false
+    }
+    if (listedValues !== null && !isWildcardMatch) {
+      listedValues.push(enc)
+    }
+
     if (quality === 0 || preferredEncodingQuality > quality) {
       return false
     }
 
-    const encoding = (enc === '*' && supportedValues[0]) || enc
-    const priority = supportedValues.indexOf(encoding)
+    const priority = supportedValues.indexOf(enc)
     if (priority === -1) {
       return false
     }
 
     if (priority === 0 && quality === 1) {
-      preferredEncoding = encoding
+      preferredEncoding = enc
       return true
     } else if (preferredEncodingQuality < quality) {
-      preferredEncoding = encoding
+      preferredEncoding = enc
       preferredEncodingPriority = priority
       preferredEncodingQuality = quality
     } else if (preferredEncodingPriority > priority) {
-      preferredEncoding = encoding
+      preferredEncoding = enc
       preferredEncodingPriority = priority
       preferredEncodingQuality = quality
     }
     return false
   }
 
-  parse(header, processMatch)
+  if (parse(header, processMatch) || wildcardQuality === 0) {
+    return preferredEncoding
+  }
+
+  for (let i = 0; i < supportedValues.length; ++i) {
+    if (listedValues.indexOf(supportedValues[i]) === -1) {
+      processMatch(supportedValues[i], wildcardQuality, true)
+      break
+    }
+  }
 
   return preferredEncoding
 }
@@ -158,10 +179,11 @@ function parse (header, processMatch) {
   }
 
   if (state === TOKEN) {
-    processMatch(str, 1)
+    return processMatch(str, 1)
   } else if (state === QUALITY) {
-    processMatch(str, parseFloat(quality) || 0)
+    return processMatch(str, parseFloat(quality) || 0)
   }
+  return state === END
 }
 
 module.exports = negotiate

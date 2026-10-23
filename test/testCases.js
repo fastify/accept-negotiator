@@ -42,6 +42,10 @@ module.exports = [
   ['gzip, compress;q=0', ['compress', 'gzip'], 'gzip'],
   ['gzip;q=0.8, deflate', ['gzip', 'deflate'], 'deflate'],
   ['gzip;q=0.8, identity;q=0.5, *;q=0.3', ['deflate', 'gzip', 'br'], 'gzip'],
+  ['gzip;q=0, *', ['gzip', 'br'], 'br'],
+  ['*;q=0.5, gzip;q=0', ['gzip', 'br'], 'br'],
+  ['*, gzip;q=0', ['gzip'], null],
+  ['br;q=0.5, *', ['br', 'gzip'], 'gzip'],
   [';qzip;q=1gzip', ['qzip'], 'qzip'],
   // non-standard
   [';gzip;q=abc', ['gzip', 'abc'], 'abc'],
